@@ -9,11 +9,11 @@
 		</div>
 		<div class="gallery-info">
 			<a href="{{ product.url | within: collection }}">{{ product.title | truncate: 30 }}</a><br />
-			<small>{{ product.price | money }}{% if product.compare_at_price_max > product.price %} <del>{{ product.compare_at_price_max | money }}</del>{% endif %}</small>
+			<small>{{ product.price | money }}{% if product.compare_at_price_max > product.price %} <del>{{ product.compare_at_price_max | money }}</del>{% end %}</small>
 		</div>
-	{% endtablerow %}
+	{% end %}
 	</table>{% if paginate.pages > 1 %}
 	<div id="paginate">
 		{{ paginate | default_pagination }}
-	</div>{% endif %}{% endif %}
-{% endpaginate %}
+	</div>{% end %}{% end %}
+{% end %}

@@ -4,7 +4,7 @@
 	</div>{% else %}
 	<div class="product-images">
 		<a href="{{ image | product_img_url: 'large' }}" rel="lightbox[images]" title="{{ product.title | escape }}"><img src="{{ image | product_img_url: 'small' }}" alt="{{ product.title | escape }}" /></a>
-	</div>{% endif %}{% endfor %}
+	</div>{% end %}{% end %}
 </div>
 <div id="product-right">
 	<h1>{{ product.title }}</h1>
@@ -19,7 +19,7 @@
       <select id="product-select" name='id'>
         {% for variant in product.variants %}
           <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
-        {% endfor %}
+        {% end %}
       </select>
 		</div>
 
@@ -27,7 +27,7 @@
 	</form>
 	{% else %}
 	  <p class="bold-red">This product is temporarily unavailable</p>
-	{% endif %}
+	{% end %}
 
 	<div id="product-details">
 		<strong>Continue Shopping</strong><br />

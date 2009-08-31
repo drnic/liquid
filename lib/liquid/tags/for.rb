@@ -6,14 +6,14 @@ module Liquid
   # == Basic usage:
   #    {% for item in collection %}
   #      {{ forloop.index }}: {{ item.name }}
-  #    {% endfor %}
+  #    {% end %}
   #
   # == Advanced usage:
   #    {% for item in collection %}
-  #      <div {% if forloop.first %}class="first"{% endif %}>
+  #      <div {% if forloop.first %}class="first"{% end %}>
   #        Item {{ forloop.index }}: {{ item.name }}
   #      </div>
-  #    {% endfor %}
+  #    {% end %}
   #
   # You can also define a limit and offset much like SQL.  Remember
   # that offset starts at 0 for the first item.

@@ -26,33 +26,33 @@ class StandardTagTest < Test::Unit::TestCase
 
   def test_has_a_block_which_does_nothing
     assert_template_result(%|the comment block should be removed  .. right?|,
-                           %|the comment block should be removed {%comment%} be gone.. {%endcomment%} .. right?|)
+                           %|the comment block should be removed {%comment%} be gone.. {%end%} .. right?|)
 
-    assert_template_result('','{%comment%}{%endcomment%}')
-    assert_template_result('','{%comment%}{% endcomment %}')
-    assert_template_result('','{% comment %}{%endcomment%}')
-    assert_template_result('','{% comment %}{% endcomment %}')
-    assert_template_result('','{%comment%}comment{%endcomment%}')
-    assert_template_result('','{% comment %}comment{% endcomment %}')
+    assert_template_result('','{%comment%}{%end%}')
+    assert_template_result('','{%comment%}{% end %}')
+    assert_template_result('','{% comment %}{%end%}')
+    assert_template_result('','{% comment %}{% end %}')
+    assert_template_result('','{%comment%}comment{%end%}')
+    assert_template_result('','{% comment %}comment{% end %}')
 
-    assert_template_result('foobar','foo{%comment%}comment{%endcomment%}bar')
-    assert_template_result('foobar','foo{% comment %}comment{% endcomment %}bar')
-    assert_template_result('foobar','foo{%comment%} comment {%endcomment%}bar')
-    assert_template_result('foobar','foo{% comment %} comment {% endcomment %}bar')
+    assert_template_result('foobar','foo{%comment%}comment{%end%}bar')
+    assert_template_result('foobar','foo{% comment %}comment{% end %}bar')
+    assert_template_result('foobar','foo{%comment%} comment {%end%}bar')
+    assert_template_result('foobar','foo{% comment %} comment {% end %}bar')
 
-    assert_template_result('foo  bar','foo {%comment%} {%endcomment%} bar')
-    assert_template_result('foo  bar','foo {%comment%}comment{%endcomment%} bar')
-    assert_template_result('foo  bar','foo {%comment%} comment {%endcomment%} bar')
+    assert_template_result('foo  bar','foo {%comment%} {%end%} bar')
+    assert_template_result('foo  bar','foo {%comment%}comment{%end%} bar')
+    assert_template_result('foo  bar','foo {%comment%} comment {%end%} bar')
 
     assert_template_result('foobar','foo{%comment%}
-                                     {%endcomment%}bar')
+                                     {%end%}bar')
   end
 
   def test_for
-    assert_template_result(' yo  yo  yo  yo ','{%for item in array%} yo {%endfor%}','array' => [1,2,3,4])
-    assert_template_result('yoyo','{%for item in array%}yo{%endfor%}','array' => [1,2])
-    assert_template_result(' yo ','{%for item in array%} yo {%endfor%}','array' => [1])
-    assert_template_result('','{%for item in array%}{%endfor%}','array' => [1,2])
+    assert_template_result(' yo  yo  yo  yo ','{%for item in array%} yo {%end%}','array' => [1,2,3,4])
+    assert_template_result('yoyo','{%for item in array%}yo{%end%}','array' => [1,2])
+    assert_template_result(' yo ','{%for item in array%} yo {%end%}','array' => [1])
+    assert_template_result('','{%for item in array%}{%end%}','array' => [1,2])
     expected = <<HERE
 
   yo
@@ -65,73 +65,73 @@ HERE
     template = <<HERE
 {%for item in array%}
   yo
-{%endfor%}
+{%end%}
 HERE
     assert_template_result(expected,template,'array' => [1,2,3])
   end
 
   def test_for_with_range
-    assert_template_result(' 1  2  3 ','{%for item in (1..3) %} {{item}} {%endfor%}')
+    assert_template_result(' 1  2  3 ','{%for item in (1..3) %} {{item}} {%end%}')
   end
 
   def test_for_with_variable
-    assert_template_result(' 1  2  3 ','{%for item in array%} {{item}} {%endfor%}','array' => [1,2,3])
-    assert_template_result('123','{%for item in array%}{{item}}{%endfor%}','array' => [1,2,3])
-    assert_template_result('123','{% for item in array %}{{item}}{% endfor %}','array' => [1,2,3])
-    assert_template_result('abcd','{%for item in array%}{{item}}{%endfor%}','array' => ['a','b','c','d'])
-    assert_template_result('a b c','{%for item in array%}{{item}}{%endfor%}','array' => ['a',' ','b',' ','c'])
-    assert_template_result('abc','{%for item in array%}{{item}}{%endfor%}','array' => ['a','','b','','c'])
+    assert_template_result(' 1  2  3 ','{%for item in array%} {{item}} {%end%}','array' => [1,2,3])
+    assert_template_result('123','{%for item in array%}{{item}}{%end%}','array' => [1,2,3])
+    assert_template_result('123','{% for item in array %}{{item}}{% end %}','array' => [1,2,3])
+    assert_template_result('abcd','{%for item in array%}{{item}}{%end%}','array' => ['a','b','c','d'])
+    assert_template_result('a b c','{%for item in array%}{{item}}{%end%}','array' => ['a',' ','b',' ','c'])
+    assert_template_result('abc','{%for item in array%}{{item}}{%end%}','array' => ['a','','b','','c'])
   end
 
   def test_for_helpers
     assigns = {'array' => [1,2,3] }
-    assert_template_result(' 1/3  2/3  3/3 ','{%for item in array%} {{forloop.index}}/{{forloop.length}} {%endfor%}',assigns)
-    assert_template_result(' 1  2  3 ','{%for item in array%} {{forloop.index}} {%endfor%}',assigns)
-    assert_template_result(' 0  1  2 ','{%for item in array%} {{forloop.index0}} {%endfor%}',assigns)
-    assert_template_result(' 2  1  0 ','{%for item in array%} {{forloop.rindex0}} {%endfor%}',assigns)
-    assert_template_result(' 3  2  1 ','{%for item in array%} {{forloop.rindex}} {%endfor%}',assigns)
-    assert_template_result(' true  false  false ','{%for item in array%} {{forloop.first}} {%endfor%}',assigns)
-    assert_template_result(' false  false  true ','{%for item in array%} {{forloop.last}} {%endfor%}',assigns)
+    assert_template_result(' 1/3  2/3  3/3 ','{%for item in array%} {{forloop.index}}/{{forloop.length}} {%end%}',assigns)
+    assert_template_result(' 1  2  3 ','{%for item in array%} {{forloop.index}} {%end%}',assigns)
+    assert_template_result(' 0  1  2 ','{%for item in array%} {{forloop.index0}} {%end%}',assigns)
+    assert_template_result(' 2  1  0 ','{%for item in array%} {{forloop.rindex0}} {%end%}',assigns)
+    assert_template_result(' 3  2  1 ','{%for item in array%} {{forloop.rindex}} {%end%}',assigns)
+    assert_template_result(' true  false  false ','{%for item in array%} {{forloop.first}} {%end%}',assigns)
+    assert_template_result(' false  false  true ','{%for item in array%} {{forloop.last}} {%end%}',assigns)
   end
 
   def test_for_and_if
     assigns = {'array' => [1,2,3] }
-    assert_template_result('+--', '{%for item in array%}{% if forloop.first %}+{% else %}-{% endif %}{%endfor%}', assigns)
+    assert_template_result('+--', '{%for item in array%}{% if forloop.first %}+{% else %}-{% end %}{%end%}', assigns)
   end
 
   def test_limiting
     assigns = {'array' => [1,2,3,4,5,6,7,8,9,0]}
-    assert_template_result('12','{%for i in array limit:2 %}{{ i }}{%endfor%}',assigns)
-    assert_template_result('1234','{%for i in array limit:4 %}{{ i }}{%endfor%}',assigns)
-    assert_template_result('3456','{%for i in array limit:4 offset:2 %}{{ i }}{%endfor%}',assigns)
-    assert_template_result('3456','{%for i in array limit: 4 offset: 2 %}{{ i }}{%endfor%}',assigns)
+    assert_template_result('12','{%for i in array limit:2 %}{{ i }}{%end%}',assigns)
+    assert_template_result('1234','{%for i in array limit:4 %}{{ i }}{%end%}',assigns)
+    assert_template_result('3456','{%for i in array limit:4 offset:2 %}{{ i }}{%end%}',assigns)
+    assert_template_result('3456','{%for i in array limit: 4 offset: 2 %}{{ i }}{%end%}',assigns)
   end
 
   def test_dynamic_variable_limiting
     assigns = {'array' => [1,2,3,4,5,6,7,8,9,0]}
     assigns['limit'] = 2
     assigns['offset'] = 2
-    assert_template_result('34','{%for i in array limit: limit offset: offset %}{{ i }}{%endfor%}',assigns)
+    assert_template_result('34','{%for i in array limit: limit offset: offset %}{{ i }}{%end%}',assigns)
   end
 
   def test_nested_for
     assigns = {'array' => [[1,2],[3,4],[5,6]] }
-    assert_template_result('123456','{%for item in array%}{%for i in item%}{{ i }}{%endfor%}{%endfor%}',assigns)
+    assert_template_result('123456','{%for item in array%}{%for i in item%}{{ i }}{%end%}{%end%}',assigns)
   end
 
   def test_offset_only
     assigns = {'array' => [1,2,3,4,5,6,7,8,9,0]}
-    assert_template_result('890','{%for i in array offset:7 %}{{ i }}{%endfor%}',assigns)
+    assert_template_result('890','{%for i in array offset:7 %}{{ i }}{%end%}',assigns)
   end
 
   def test_pause_resume
     assigns = {'array' => {'items' => [1,2,3,4,5,6,7,8,9,0]}}
     markup = <<-MKUP
-      {%for i in array.items limit: 3 %}{{i}}{%endfor%}
+      {%for i in array.items limit: 3 %}{{i}}{%end%}
       next
-      {%for i in array.items offset:continue limit: 3 %}{{i}}{%endfor%}
+      {%for i in array.items offset:continue limit: 3 %}{{i}}{%end%}
       next
-      {%for i in array.items offset:continue limit: 3 %}{{i}}{%endfor%}
+      {%for i in array.items offset:continue limit: 3 %}{{i}}{%end%}
       MKUP
     expected = <<-XPCTD
       123
@@ -146,11 +146,11 @@ HERE
   def test_pause_resume_limit
     assigns = {'array' => {'items' => [1,2,3,4,5,6,7,8,9,0]}}
     markup = <<-MKUP
-      {%for i in array.items limit:3 %}{{i}}{%endfor%}
+      {%for i in array.items limit:3 %}{{i}}{%end%}
       next
-      {%for i in array.items offset:continue limit:3 %}{{i}}{%endfor%}
+      {%for i in array.items offset:continue limit:3 %}{{i}}{%end%}
       next
-      {%for i in array.items offset:continue limit:1 %}{{i}}{%endfor%}
+      {%for i in array.items offset:continue limit:1 %}{{i}}{%end%}
       MKUP
     expected = <<-XPCTD
       123
@@ -165,11 +165,11 @@ HERE
   def test_pause_resume_BIG_limit
     assigns = {'array' => {'items' => [1,2,3,4,5,6,7,8,9,0]}}
     markup = <<-MKUP
-      {%for i in array.items limit:3 %}{{i}}{%endfor%}
+      {%for i in array.items limit:3 %}{{i}}{%end%}
       next
-      {%for i in array.items offset:continue limit:3 %}{{i}}{%endfor%}
+      {%for i in array.items offset:continue limit:3 %}{{i}}{%end%}
       next
-      {%for i in array.items offset:continue limit:1000 %}{{i}}{%endfor%}
+      {%for i in array.items offset:continue limit:1000 %}{{i}}{%end%}
       MKUP
     expected = <<-XPCTD
       123
@@ -184,11 +184,11 @@ HERE
 
   def test_pause_resume_BIG_offset
     assigns = {'array' => {'items' => [1,2,3,4,5,6,7,8,9,0]}}
-    markup = %q({%for i in array.items limit:3 %}{{i}}{%endfor%}
+    markup = %q({%for i in array.items limit:3 %}{{i}}{%end%}
       next
-      {%for i in array.items offset:continue limit:3 %}{{i}}{%endfor%}
+      {%for i in array.items offset:continue limit:3 %}{{i}}{%end%}
       next
-      {%for i in array.items offset:continue limit:3 offset:1000 %}{{i}}{%endfor%})
+      {%for i in array.items offset:continue limit:3 offset:1000 %}{{i}}{%end%})
     expected = %q(123
       next
       456
@@ -216,74 +216,74 @@ HERE
 
   def test_capture
     assigns = {'var' => 'content' }
-    assert_template_result('content foo content foo ','{{ var2 }}{% capture var2 %}{{ var }} foo {% endcapture %}{{ var2 }}{{ var2 }}', assigns)
+    assert_template_result('content foo content foo ','{{ var2 }}{% capture var2 %}{{ var }} foo {% end %}{{ var2 }}{{ var2 }}', assigns)
   end
 
   def test_capture_detects_bad_syntax
     assert_raise(SyntaxError) do
-      assert_template_result('content foo content foo ','{{ var2 }}{% capture %}{{ var }} foo {% endcapture %}{{ var2 }}{{ var2 }}', {'var' => 'content' })
+      assert_template_result('content foo content foo ','{{ var2 }}{% capture %}{{ var }} foo {% end %}{{ var2 }}{{ var2 }}', {'var' => 'content' })
     end
   end
 
   def test_case
     assigns = {'condition' => 2 }
-    assert_template_result(' its 2 ','{% case condition %}{% when 1 %} its 1 {% when 2 %} its 2 {% endcase %}', assigns)
+    assert_template_result(' its 2 ','{% case condition %}{% when 1 %} its 1 {% when 2 %} its 2 {% end %}', assigns)
 
     assigns = {'condition' => 1 }
-    assert_template_result(' its 1 ','{% case condition %}{% when 1 %} its 1 {% when 2 %} its 2 {% endcase %}', assigns)
+    assert_template_result(' its 1 ','{% case condition %}{% when 1 %} its 1 {% when 2 %} its 2 {% end %}', assigns)
 
     assigns = {'condition' => 3 }
-    assert_template_result('','{% case condition %}{% when 1 %} its 1 {% when 2 %} its 2 {% endcase %}', assigns)
+    assert_template_result('','{% case condition %}{% when 1 %} its 1 {% when 2 %} its 2 {% end %}', assigns)
 
     assigns = {'condition' => "string here" }
-    assert_template_result(' hit ','{% case condition %}{% when "string here" %} hit {% endcase %}', assigns)
+    assert_template_result(' hit ','{% case condition %}{% when "string here" %} hit {% end %}', assigns)
 
     assigns = {'condition' => "bad string here" }
-    assert_template_result('','{% case condition %}{% when "string here" %} hit {% endcase %}', assigns)
+    assert_template_result('','{% case condition %}{% when "string here" %} hit {% end %}', assigns)
   end
 
   def test_case_with_else
 
     assigns = {'condition' => 5 }
-    assert_template_result(' hit ','{% case condition %}{% when 5 %} hit {% else %} else {% endcase %}', assigns)
+    assert_template_result(' hit ','{% case condition %}{% when 5 %} hit {% else %} else {% end %}', assigns)
 
     assigns = {'condition' => 6 }
-    assert_template_result(' else ','{% case condition %}{% when 5 %} hit {% else %} else {% endcase %}', assigns)
+    assert_template_result(' else ','{% case condition %}{% when 5 %} hit {% else %} else {% end %}', assigns)
 
     assigns = {'condition' => 6 }
-    assert_template_result(' else ','{% case condition %} {% when 5 %} hit {% else %} else {% endcase %}', assigns)
+    assert_template_result(' else ','{% case condition %} {% when 5 %} hit {% else %} else {% end %}', assigns)
 
 
   end
 
   def test_case_on_size
-    assert_template_result('',     '{% case a.size %}{% when 1 %}1{% when 2 %}2{% endcase %}', 'a' => [])
-    assert_template_result('1' ,   '{% case a.size %}{% when 1 %}1{% when 2 %}2{% endcase %}', 'a' => [1])
-    assert_template_result('2' ,   '{% case a.size %}{% when 1 %}1{% when 2 %}2{% endcase %}', 'a' => [1, 1])
-    assert_template_result('',     '{% case a.size %}{% when 1 %}1{% when 2 %}2{% endcase %}', 'a' => [1, 1, 1])
-    assert_template_result('',     '{% case a.size %}{% when 1 %}1{% when 2 %}2{% endcase %}', 'a' => [1, 1, 1, 1])
-    assert_template_result('',     '{% case a.size %}{% when 1 %}1{% when 2 %}2{% endcase %}', 'a' => [1, 1, 1, 1, 1])
+    assert_template_result('',     '{% case a.size %}{% when 1 %}1{% when 2 %}2{% end %}', 'a' => [])
+    assert_template_result('1' ,   '{% case a.size %}{% when 1 %}1{% when 2 %}2{% end %}', 'a' => [1])
+    assert_template_result('2' ,   '{% case a.size %}{% when 1 %}1{% when 2 %}2{% end %}', 'a' => [1, 1])
+    assert_template_result('',     '{% case a.size %}{% when 1 %}1{% when 2 %}2{% end %}', 'a' => [1, 1, 1])
+    assert_template_result('',     '{% case a.size %}{% when 1 %}1{% when 2 %}2{% end %}', 'a' => [1, 1, 1, 1])
+    assert_template_result('',     '{% case a.size %}{% when 1 %}1{% when 2 %}2{% end %}', 'a' => [1, 1, 1, 1, 1])
   end
 
   def test_case_on_size_with_else
-    assert_template_result('else', '{% case a.size %}{% when 1 %}1{% when 2 %}2{% else %}else{% endcase %}', 'a' => [])
-    assert_template_result('1',    '{% case a.size %}{% when 1 %}1{% when 2 %}2{% else %}else{% endcase %}', 'a' => [1])
-    assert_template_result('2',    '{% case a.size %}{% when 1 %}1{% when 2 %}2{% else %}else{% endcase %}', 'a' => [1, 1])
-    assert_template_result('else', '{% case a.size %}{% when 1 %}1{% when 2 %}2{% else %}else{% endcase %}', 'a' => [1, 1, 1])
-    assert_template_result('else', '{% case a.size %}{% when 1 %}1{% when 2 %}2{% else %}else{% endcase %}', 'a' => [1, 1, 1, 1])
-    assert_template_result('else', '{% case a.size %}{% when 1 %}1{% when 2 %}2{% else %}else{% endcase %}', 'a' => [1, 1, 1, 1, 1])
+    assert_template_result('else', '{% case a.size %}{% when 1 %}1{% when 2 %}2{% else %}else{% end %}', 'a' => [])
+    assert_template_result('1',    '{% case a.size %}{% when 1 %}1{% when 2 %}2{% else %}else{% end %}', 'a' => [1])
+    assert_template_result('2',    '{% case a.size %}{% when 1 %}1{% when 2 %}2{% else %}else{% end %}', 'a' => [1, 1])
+    assert_template_result('else', '{% case a.size %}{% when 1 %}1{% when 2 %}2{% else %}else{% end %}', 'a' => [1, 1, 1])
+    assert_template_result('else', '{% case a.size %}{% when 1 %}1{% when 2 %}2{% else %}else{% end %}', 'a' => [1, 1, 1, 1])
+    assert_template_result('else', '{% case a.size %}{% when 1 %}1{% when 2 %}2{% else %}else{% end %}', 'a' => [1, 1, 1, 1, 1])
   end
 
   def test_case_on_length_with_else
-    assert_template_result('else',  '{% case a.empty? %}{% when true %}true{% when false %}false{% else %}else{% endcase %}', {})
-    assert_template_result('false', '{% case false %}{% when true %}true{% when false %}false{% else %}else{% endcase %}', {})
-    assert_template_result('true',  '{% case true %}{% when true %}true{% when false %}false{% else %}else{% endcase %}', {})
-    assert_template_result('else',  '{% case NULL %}{% when true %}true{% when false %}false{% else %}else{% endcase %}', {})
+    assert_template_result('else',  '{% case a.empty? %}{% when true %}true{% when false %}false{% else %}else{% end %}', {})
+    assert_template_result('false', '{% case false %}{% when true %}true{% when false %}false{% else %}else{% end %}', {})
+    assert_template_result('true',  '{% case true %}{% when true %}true{% when false %}false{% else %}else{% end %}', {})
+    assert_template_result('else',  '{% case NULL %}{% when true %}true{% when false %}false{% else %}else{% end %}', {})
   end
 
   def test_assign_from_case
     # Example from the shopify forums
-    code = %q({% case collection.handle %}{% when 'menswear-jackets' %}{% assign ptitle = 'menswear' %}{% when 'menswear-t-shirts' %}{% assign ptitle = 'menswear' %}{% else %}{% assign ptitle = 'womenswear' %}{% endcase %}{{ ptitle }})
+    code = %q({% case collection.handle %}{% when 'menswear-jackets' %}{% assign ptitle = 'menswear' %}{% when 'menswear-t-shirts' %}{% assign ptitle = 'menswear' %}{% else %}{% assign ptitle = 'womenswear' %}{% end %}{{ ptitle }})
     template = Liquid::Template.parse(code)
     assert_equal "menswear",   template.render("collection" => {'handle' => 'menswear-jackets'})
     assert_equal "menswear",   template.render("collection" => {'handle' => 'menswear-t-shirts'})
@@ -293,14 +293,14 @@ HERE
   end
 
   def test_case_when_or
-    code = '{% case condition %}{% when 1 or 2 or 3 %} its 1 or 2 or 3 {% when 4 %} its 4 {% endcase %}'
+    code = '{% case condition %}{% when 1 or 2 or 3 %} its 1 or 2 or 3 {% when 4 %} its 4 {% end %}'
     assert_template_result(' its 1 or 2 or 3 ', code, {'condition' => 1 })
     assert_template_result(' its 1 or 2 or 3 ', code, {'condition' => 2 })
     assert_template_result(' its 1 or 2 or 3 ', code, {'condition' => 3 })
     assert_template_result(' its 4 ', code, {'condition' => 4 })
     assert_template_result('', code, {'condition' => 5 })
 
-    code = '{% case condition %}{% when 1 or "string" or null %} its 1 or 2 or 3 {% when 4 %} its 4 {% endcase %}'
+    code = '{% case condition %}{% when 1 or "string" or null %} its 1 or 2 or 3 {% when 4 %} its 4 {% end %}'
     assert_template_result(' its 1 or 2 or 3 ', code, {'condition' => 1 })
     assert_template_result(' its 1 or 2 or 3 ', code, {'condition' => 'string' })
     assert_template_result(' its 1 or 2 or 3 ', code, {'condition' => nil })
@@ -308,14 +308,14 @@ HERE
   end
 
   def test_case_when_comma
-    code = '{% case condition %}{% when 1, 2, 3 %} its 1 or 2 or 3 {% when 4 %} its 4 {% endcase %}'
+    code = '{% case condition %}{% when 1, 2, 3 %} its 1 or 2 or 3 {% when 4 %} its 4 {% end %}'
     assert_template_result(' its 1 or 2 or 3 ', code, {'condition' => 1 })
     assert_template_result(' its 1 or 2 or 3 ', code, {'condition' => 2 })
     assert_template_result(' its 1 or 2 or 3 ', code, {'condition' => 3 })
     assert_template_result(' its 4 ', code, {'condition' => 4 })
     assert_template_result('', code, {'condition' => 5 })
 
-    code = '{% case condition %}{% when 1, "string", null %} its 1 or 2 or 3 {% when 4 %} its 4 {% endcase %}'
+    code = '{% case condition %}{% when 1, "string", null %} its 1 or 2 or 3 {% when 4 %} its 4 {% end %}'
     assert_template_result(' its 1 or 2 or 3 ', code, {'condition' => 1 })
     assert_template_result(' its 1 or 2 or 3 ', code, {'condition' => 'string' })
     assert_template_result(' its 1 or 2 or 3 ', code, {'condition' => nil })
@@ -327,16 +327,16 @@ HERE
   end
 
   def test_assign_is_global
-    assert_equal 'variable', Liquid::Template.parse( '{%for i in (1..2) %}{% assign a = "variable"%}{% endfor %}{{a}}'  ).render
+    assert_equal 'variable', Liquid::Template.parse( '{%for i in (1..2) %}{% assign a = "variable"%}{% end %}{{a}}'  ).render
   end
 
   def test_case_detects_bad_syntax
     assert_raise(SyntaxError) do
-      assert_template_result('',  '{% case false %}{% when %}true{% endcase %}', {})
+      assert_template_result('',  '{% case false %}{% when %}true{% end %}', {})
     end
 
     assert_raise(SyntaxError) do
-      assert_template_result('',  '{% case false %}{% huh %}true{% endcase %}', {})
+      assert_template_result('',  '{% case false %}{% huh %}true{% end %}', {})
     end
 
   end
@@ -378,23 +378,23 @@ HERE
   end
 
   def test_illegal_symbols
-    assert_template_result('',     '{% if true == empty %}?{% endif %}', {})
-    assert_template_result('',     '{% if true == null %}?{% endif %}', {})
-    assert_template_result('',     '{% if empty == true %}?{% endif %}', {})
-    assert_template_result('',     '{% if null == true %}?{% endif %}', {})
+    assert_template_result('',     '{% if true == empty %}?{% end %}', {})
+    assert_template_result('',     '{% if true == null %}?{% end %}', {})
+    assert_template_result('',     '{% if empty == true %}?{% end %}', {})
+    assert_template_result('',     '{% if null == true %}?{% end %}', {})
   end
 
   def test_for_reversed
     assigns = {'array' => [ 1, 2, 3] }
-    assert_template_result('321','{%for item in array reversed %}{{item}}{%endfor%}',assigns)
+    assert_template_result('321','{%for item in array reversed %}{{item}}{%end%}',assigns)
   end
 
 
   def test_ifchanged
     assigns = {'array' => [ 1, 1, 2, 2, 3, 3] }
-    assert_template_result('123','{%for item in array%}{%ifchanged%}{{item}}{% endifchanged %}{%endfor%}',assigns)
+    assert_template_result('123','{%for item in array%}{%ifchanged%}{{item}}{% end %}{%end%}',assigns)
 
     assigns = {'array' => [ 1, 1, 1, 1] }
-    assert_template_result('1','{%for item in array%}{%ifchanged%}{{item}}{% endifchanged %}{%endfor%}',assigns)
+    assert_template_result('1','{%for item in array%}{%ifchanged%}{{item}}{% end %}{%end%}',assigns)
   end
 end

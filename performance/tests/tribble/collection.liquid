@@ -2,7 +2,7 @@
 		<h1>{{ collection.title }}</h1>
 		{% if collection.description.size > 0 %}
 			<div class="latest-news">{{ collection.description }}</div>
-		{% endif %}
+		{% end %}
 		
 		{% paginate collection.products by 8 %}
 
@@ -20,7 +20,7 @@
 					</div>
 					
 					<div class="ili-bottom clearfix">
-						<p class="hiddenvariants" style="display: none">{% for variant in product.variants %}<span><input type="radio" name="id" value="{{variant.id}}" id="radio_{{variant.id}}" style="vertical-align: middle;" {%if forloop.first%} checked="checked" {%endif%} /><label for="radio_{{variant.id}}">{{ variant.price | money_with_currency }} - {{ variant.title }}</label></span>{% endfor %}</p>
+						<p class="hiddenvariants" style="display: none">{% for variant in product.variants %}<span><input type="radio" name="id" value="{{variant.id}}" id="radio_{{variant.id}}" style="vertical-align: middle;" {%if forloop.first%} checked="checked" {%end%} /><label for="radio_{{variant.id}}">{{ variant.price | money_with_currency }} - {{ variant.title }}</label></span>{% end %}</p>
 						<input type="submit" class="" value="Add to Basket" />
 						<p>
 							<a href="{{product.url}}">View Details</a>	
@@ -29,8 +29,8 @@
 								{% if product.compare_at_price %} 			  
 									{% if product.price_min != product.compare_at_price %}			    
 										{{product.compare_at_price | money}} -
-			  						{% endif %}
-								{% endif %}
+			  						{% end %}
+								{% end %}
 								<strong>
 									{{product.price_min | money}}
 								</strong>
@@ -40,7 +40,7 @@
 				</div>
 				</form>
 			</li>
-		{% endfor %}
+		{% end %}
 		</ul>
 		
 		<div class="paginate clearfix">
@@ -67,4 +67,4 @@
 		</div>
 	</div>
 
-{% endpaginate %}
+{% end %}

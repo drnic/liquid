@@ -13,19 +13,19 @@
       {% if blog.comments_enabled? %}
         <a href="{{article.url}}#comments">{{ article.comments_count }} comments</a>
         &mdash; 
-      {% endif %}
+      {% end %}
       posted {{ article.created_at | date: "%Y %h" }} by {{ article.author }}</p>
       <div class="article-body textile">
         {{ article.content }}
       </div>    
     </div>
-  {% endfor %}
+  {% end %}
 
   <div id="pagination">
     {{ paginate | default_pagination }}
   </div>
 
-{% endpaginate %}
+{% end %}
 
 
 </div>

@@ -4,7 +4,7 @@ module Liquid
   #
   #   {% capture heading %}
   #     Monkeys!
-  #   {% endcapture %}
+  #   {% end %}
   #   ...
   #   <h1>{{ monkeys }}</h1>
   #

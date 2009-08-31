@@ -26,7 +26,7 @@ Liquid is a template engine which I wrote for very specific requirements
   
 	      {{product.description | prettyprint | paragraph }}
  	    </li>      
-	  {% endfor %}  
+	  {% end %}  
 	</ul>
 
 == Howto use Liquid

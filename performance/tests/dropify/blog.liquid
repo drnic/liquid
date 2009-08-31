@@ -19,15 +19,15 @@
       
       {% if blog.comments_enabled? %}
         <p style="text-align: right"><a href="{{article.url}}#comments">{{ article.comments_count }} comments</a></p>
-      {% endif %}    
+      {% end %}    
     </div>
   
-    {% endfor %}
+    {% end %}
     
     <div id="pagination">
       {{ paginate | default_pagination }}
     </div>
 
-  {% endpaginate %}
+  {% end %}
   
 </div>

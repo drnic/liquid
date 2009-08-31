@@ -8,9 +8,9 @@
 		</div>
 		<div class="gallery-info">
 			<a href="{{ product.url | within: collections.frontpage }}">{{ product.title | truncate: 30 }}</a><br />
-			<small>{{ product.price | money }}{% if product.compare_at_price_max > product.price %} <del>{{ product.compare_at_price_max | money }}</del>{% endif %}</small>
+			<small>{{ product.price | money }}{% if product.compare_at_price_max > product.price %} <del>{{ product.compare_at_price_max | money }}</del>{% end %}</small>
 		</div>
-	{% endtablerow %}
+	{% end %}
 	</table>
 {% else %}
 <script type="text/javascript">
@@ -38,11 +38,11 @@
 					{{ item.product.description | strip_html | truncate: 120 }}
 				</div>
 			</td>
-			<td class="basket-column">{{ item.price | money }}{% if item.variant.compare_at_price > item.price %}<br /><del>{{ item.variant.compare_at_price | money }}</del>{% endif %}</td>
+			<td class="basket-column">{{ item.price | money }}{% if item.variant.compare_at_price > item.price %}<br /><del>{{ item.variant.compare_at_price | money }}</del>{% end %}</td>
 			<td class="basket-column"><input type="text" size="4" name="updates[{{item.variant.id}}]" id="updates_{{ item.variant.id }}" value="{{ item.quantity }}" onfocus="this.select();"/></td>
 			<td class="basket-column"><a href="#" onclick="remove_item({{ item.variant.id }}); return false;">Remove</a></td>
 			<td class="basket-column">{{ item.line_price | money }}</td>
-		</tr>{% endfor %}
+		</tr>{% end %}
 	</table>
 	<div id="basket-right">
 		<h3>Subtotal {{ cart.total_price | money }}</h3>
@@ -53,6 +53,6 @@
       <p>- or -</p>
       {{ content_for_additional_checkout_buttons }}
     </div>
-    {% endif %}
+    {% end %}
 	</div>
-</form>{% endif %}
+</form>{% end %}

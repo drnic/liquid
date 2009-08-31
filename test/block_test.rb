@@ -37,7 +37,7 @@ class VariableTest < Test::Unit::TestCase
   end
   
   def test_with_block
-    template = Liquid::Template.parse("  {% comment %} {% endcomment %} ")
+    template = Liquid::Template.parse("  {% comment %} {% end %} ")
     assert_equal [String, Comment, String], block_types(template.root.nodelist)    
     assert_equal 3, template.root.nodelist.size
   end
@@ -46,7 +46,7 @@ class VariableTest < Test::Unit::TestCase
     Liquid::Template.register_tag("testtag", Block) 
      
     assert_nothing_thrown do 
-      template = Liquid::Template.parse( "{% testtag %} {% endtesttag %}") 
+      template = Liquid::Template.parse( "{% testtag %} {% end %}") 
     end 
   end
   

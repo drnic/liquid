@@ -32,11 +32,11 @@
 				<div class="thumb">
 				  <div class="prodimage"><a href="{{item.product.url}}" onMouseover="tooltip('{{ item.quantity }} x {{ item.title }} ({{ item.variant.title }})', 200)"; onMouseout="hidetooltip()"><img src="{{ item.product.featured_image | product_img_url: 'thumb' }}" /></a></div>
 				</div>
-			  {% endfor %}
+			  {% end %}
 			  </div>
 			 <br style="clear:both;" />
 			</div></div>
-        {% endif %}		
+        {% end %}		
 		
   <div id="container">
   	<div id="header">
@@ -46,7 +46,7 @@
         {% if cart.item_count > 0 %}
           <h2 id="cartcount"><a href="/cart" onMouseover="tooltip('There {{ cart.item_count | pluralize: 'is', 'are' }} {{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }} in your cart!', 200)"; onMouseout="hidetooltip()">{{ cart.item_count }} {{ cart.item_count | pluralize: 'thing', 'things' }}!</a></h2>
 		  <a href="/cart" id="minicartswitch" onclick="superSwitch(this, 'minicart', 'Close Mini Cart'); return false;" id="cartswitch">View Mini Cart ({{ cart.total_price | money }})</a>
-        {% endif %}		
+        {% end %}		
       </div>
       <!-- End Header -->
   	  
@@ -66,21 +66,21 @@
       <ul class="rightlinks">
         {% for link in linklists.main-menu.links %}
            <li>{{ link.title | link_to: link.url }}</li>
-        {% endfor %}
+        {% end %}
       </ul>
       
         {% if tags %}
         <ul class="rightlinks">
           {% for tag in collection.tags %}  
             <li><span class="add-link">{{ '+' | link_to_add_tag: tag }}</span>{{ tag | highlight_active_tag | link_to_tag: tag }}</li>
-          {% endfor %}
+          {% end %}
         </ul>
-        {% endif %}
+        {% end %}
   
       <ul class="rightlinks">
         {% for link in linklists.footer.links %}
            <li>{{ link.title | link_to: link.url }}</li>
-        {% endfor %}
+        {% end %}
       </ul>
       
   	</div>

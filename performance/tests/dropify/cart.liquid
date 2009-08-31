@@ -28,7 +28,7 @@
 				{{ item.title }}
 				{% if item.variant.available == true %}
 				   ({{item.variant.title}})
-				{% endif %}
+				{% end %}
 			</a>	
 		</h3>
         <small class="itemcost">Costs {{ item.price | money }} each, <span class="money">{{item.line_price | money }}</span> total.</small>
@@ -38,7 +38,7 @@
           <a href="#" onclick="remove_item({{item.variant.id}}); return false;" class="remove"><img style="padding:15px 0 0 0;margin:0;" src="{{ 'delete.gif' | asset_url }}" /></a>
         </p>
       </li>
-      {% endfor %}
+      {% end %}
       <li id="total">
         <input type="image" id="update-cart" name="update" value="Update My Cart" src="{{ 'update.gif' | asset_url }}" />
         Subtotal: 
@@ -57,10 +57,10 @@
       <p>- or -</p>
       {{ content_for_additional_checkout_buttons }}
     </div>
-    {% endif %}
+    {% end %}
   
   </form>
 
-  {% endif %}
+  {% end %}
 
 </div>

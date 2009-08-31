@@ -11,12 +11,12 @@
 					{% if product.price_min != product.compare_at_price %}
 						<p class="prd-price">Was:<del>{{product.compare_at_price | money}}</del></p>
 						<p class="prd-price"><ins>Now: {{product.price_min | money}}</ins></p>
-					{% endif %}
+					{% end %}
 				{% else %}
 					<p class="prd-price"><ins>{{product.price_min | money}}</ins></p>
-				{% endif %}
+				{% end %}
 			</div>
-		{% endfor %}
+		{% end %}
 	</div>
 
 	<div id="articles">
@@ -27,6 +27,6 @@
   	{% else %}
   	  In <em>Admin &gt; Blogs &amp; Pages</em>, create a page with the handle <strong><code>frontpage</code></strong> and it will show up here.<br />
   	  {{ "Learn more about handles" | link_to "http://wiki.shopify.com/Handle" }}
-  	{% endif %}
+  	{% end %}
 	</div>
 </div>

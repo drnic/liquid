@@ -19,9 +19,9 @@
 					<h3 class="stitle">{{ item.title | link_to: item.url }}</h3>
 					<p class="sinfo">{{ item.content | strip_html | truncatewords: 65 | highlight: search.terms }} ... <a href="{{item.url}}" title="">view this item</a></p>		
 			</li>
-		{% endfor %}
+		{% end %}
 		</ul>
-		 {% endif %}
+		 {% end %}
 		
 		<div class="paginate clearfix">
 			{{ paginate | default_pagination }}
@@ -47,5 +47,5 @@
 		</div>
 	</div>
 
-{% endpaginate %}
-{% endif %}
+{% end %}
+{% end %}

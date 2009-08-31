@@ -11,8 +11,8 @@
 				<a href="{{ image | product_img_url: 'large' }}" class="product-image-small" rel="lightbox[ product]" title="">
 				  <img src="{{ image | product_img_url: 'small'}}" alt="{{product.title | escape }}" />
 				</a>
-			{% endif %}
-		{% endfor %}
+			{% end %}
+		{% end %}
 	</div>
 	
 	<ul id="product-info">
@@ -20,7 +20,7 @@
 		<li>Type: {{ product.type | link_to_type }}</li>
 	  </ul>
 	  
-	  <small>{{ product.price_min | money }}{% if product.price_varies %} - {{ product.price_max | money }}{% endif %}</small>
+	  <small>{{ product.price_min | money }}{% if product.price_varies %} - {{ product.price_max | money }}{% end %}</small>
 		
 	  <div id="product-options">
               {% if product.available %}
@@ -30,7 +30,7 @@
       <select id="product-select" name='id'>
         {% for variant in product.variants %}
           <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
-        {% endfor %}
+        {% end %}
       </select>
 		
       <div id="price-field"></div>		
@@ -39,7 +39,7 @@
 		</form>
               {% else %}
                   <span>Sold Out!</span>
-              {% endif %}
+              {% end %}
 	  </div>
 	  
 	  <div class="product-description">

@@ -31,7 +31,7 @@
 				<li><a href="/cart">View Cart</a></li>
 			  {% for link in linklists.main-menu.links reversed %}
 				  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-				{% endfor %}
+				{% end %}
 			</ul>
 		</div>
 	</div>
@@ -53,8 +53,8 @@
 
 <div id="layout">
 	<div class="container">
-		<div id="layout-left" {% if template != "cart" %}{% if template != "product" %}style="width:619px"{% endif %}{% endif %}>{% if template == "search" %}
-			<h1>Search Results</h1>{% endif %}
+		<div id="layout-left" {% if template != "cart" %}{% if template != "product" %}style="width:619px"{% end %}{% end %}>{% if template == "search" %}
+			<h1>Search Results</h1>{% end %}
 			{{ content_for_layout }}
 		</div>{% if template != "cart" %}{% if template != "product" %}
 
@@ -66,24 +66,24 @@
     	<ul id="blogs">{% for article in blogs.news.articles limit: 6 offset: 1 %}
     		<li><a href="{{ article.url }}">{{ article.title | strip_html | truncate: 30 }}</a><br />
     			<small>{{ article.content | strip_html | truncatewords: 12 }}</small>
-    		</li>{% endfor %}
+    		</li>{% end %}
     	</ul>
-    	{% endif %}
-    	{% endif %}
+    	{% end %}
+    	{% end %}
     	
     	{% if template == "collection" %}
     	<h3>Collection Tags</h3>
     	<div id="tags">{% if collection.tags.size == 0 %}
     		No tags found.{% else %}
-    		<span class="tags">{% for tag in collection.tags %}{% if current_tags contains tag %} {{ tag | highlight_active_tag | link_to_remove_tag: tag }}{% else %} {{ tag | highlight_active_tag | link_to_add_tag: tag }}{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %}</span>{% endif %}
+    		<span class="tags">{% for tag in collection.tags %}{% if current_tags contains tag %} {{ tag | highlight_active_tag | link_to_remove_tag: tag }}{% else %} {{ tag | highlight_active_tag | link_to_add_tag: tag }}{% end %}{% unless forloop.last %}, {% end %}{% end %}</span>{% end %}
     	</div>
-    	{% endif %}
+    	{% end %}
 
       <h3>Navigation</h3>
       <ul id="links">
       {% for link in linklists.main-menu.links %}
 				<li><a href="{{ link.url }}">{{ link.title }}</a></li>
-			{% endfor %}
+			{% end %}
 		  </ul>
     	
 		  {% if template != "page" %}
@@ -97,10 +97,10 @@
 						<a href="{{ product.url | within: collections.frontpage }}">{{ product.title | strip_html | truncate: 28 }}</a><br />
 						<small><span class="light">from</span> {{ product.price | money }}</small>
 					</div>
-				</li>{% endfor %}
+				</li>{% end %}
 			</ul>
-			{% endif %}
-		</div>{% endif %}{% endif %}
+			{% end %}
+		</div>{% end %}{% end %}
 	</div>
 </div>
 
@@ -108,7 +108,7 @@
 	<div id="footer-fader">
 		<div class="container">
 			<div id="footer-right">{% for link in linklists.footer.links %}
-				{{ link.title | link_to: link.url }} {% unless forloop.last %}&#124;{% endunless %}{% endfor %}
+				{{ link.title | link_to: link.url }} {% unless forloop.last %}&#124;{% end %}{% end %}
 			</div>
 			<span id="footer-left">
 				Copyright &copy; {{ "now" | date: "%Y" }} <a href="/">{{ shop.name }}</a>. All Rights Reserved. All prices {{ shop.currency }}.<br />

@@ -74,7 +74,7 @@ class ErrorHandlingTest < Test::Unit::TestCase
     
     assert_nothing_raised do
       
-      template = Liquid::Template.parse(' {% if 1 =! 2 %}ok{% endif %} ')
+      template = Liquid::Template.parse(' {% if 1 =! 2 %}ok{% end %} ')
       assert_equal ' Liquid error: Unknown operator =! ', template.render
       
       assert_equal 1, template.errors.size

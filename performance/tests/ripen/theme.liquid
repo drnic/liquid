@@ -35,11 +35,11 @@
 							<a href="/cart">{{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }}</a> in your cart
 						{% else %}
 							Your cart is empty
-						{% endif %}
+						{% end %}
 						</dd>
 					</dl>
 				</div>
-			{% endif %}
+			{% end %}
 			<div id="search">
 				<dl id="searchbox">
 				<dt>Search</dt>
@@ -57,7 +57,7 @@
 				<dt>Navigation</dt>
 				{% for link in linklists.main-menu.links %}
 					<dd>{{ link.title | link_to: link.url }}</dd>
-				{% endfor %}
+				{% end %}
 				</dl>
 				
 				{% if tags %}
@@ -65,9 +65,9 @@
 				<dt>Tags</dt>
   				{% for tag in collection.tags %} 
 					<dd>{{ tag | highlight_active_tag | link_to_tag: tag }}</dd>
-  				{% endfor %}
+  				{% end %}
   				</dl>
-				{% endif %}
+				{% end %}
 			</div>
 		</div>
 		
@@ -77,8 +77,8 @@
 
 <div id="footer">
 	{% for link in linklists.footer.links %}
-	{{ link.title | link_to: link.url }} {% if forloop.rindex != 1 %} | {% endif %}
-	{% endfor %}
+	{{ link.title | link_to: link.url }} {% if forloop.rindex != 1 %} | {% end %}
+	{% end %}
 </div>
 
 </body>

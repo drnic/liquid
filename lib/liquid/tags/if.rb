@@ -6,9 +6,9 @@ module Liquid
   #     Admin user!
   #   {% else %}
   #     Not admin user
-  #   {% endif %}
+  #   {% end %}
   #
-  #    There are {% if count < 5 %} less {% else %} more {% endif %} items than you need.
+  #    There are {% if count < 5 %} less {% else %} more {% end %} items than you need.
   #
   #
   class If < Block

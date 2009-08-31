@@ -175,9 +175,9 @@ module Breakpoint
 
       break_line = @__bp_line
       start_line = [break_line - context, 1].max
-      end_line = break_line + context
+      endif = break_line + context
 
-      result = lines[(start_line - 1) .. (end_line - 1)]
+      result = lines[(start_line - 1) .. (endif - 1)]
 
       if return_line_numbers then
         return [start_line, break_line, result]

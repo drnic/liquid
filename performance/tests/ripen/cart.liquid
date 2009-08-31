@@ -32,7 +32,7 @@
         <td class="cart-price">{{item.line_price | money }}</td>
         <td class="short"><a href="#" onclick="remove_item({{item.variant.id}}); return false;" class="remove"><img src="{{ 'cancel_icon.gif' | asset_url }}" alt="Remove" /></a></td>
       </tr>
-      {% endfor %}
+      {% end %}
   	</table>  
 		<p class="updatebtn"><input type="image" value="Update Cart" name="update" src="{{ 'update_icon.gif' | asset_url }}" alt="Update" /></p>
 		<p class="subtotal">
@@ -45,10 +45,10 @@
       <p>- or -</p>
       {{ content_for_additional_checkout_buttons }}
     </div>
-    {% endif %}
+    {% end %}
 
   </form>
 	
-  {% endif %}
+  {% end %}
 
 </div>

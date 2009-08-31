@@ -19,8 +19,8 @@ class TemplateTest < Test::Unit::TestCase
     assert_equal ['{%comment%}'], Template.new.send(:tokenize, '{%comment%}')
     assert_equal [' ', '{%comment%}', ' '], Template.new.send(:tokenize, ' {%comment%} ')
     
-    assert_equal [' ', '{%comment%}', ' ', '{%endcomment%}', ' '], Template.new.send(:tokenize, ' {%comment%} {%endcomment%} ')
-    assert_equal ['  ', '{% comment %}', ' ', '{% endcomment %}', ' '], Template.new.send(:tokenize, "  {% comment %} {% endcomment %} ")    
+    assert_equal [' ', '{%comment%}', ' ', '{%end%}', ' '], Template.new.send(:tokenize, ' {%comment%} {%end%} ')
+    assert_equal ['  ', '{% comment %}', ' ', '{% end %}', ' '], Template.new.send(:tokenize, "  {% comment %} {% end %} ")    
   end                                                          
   
 end

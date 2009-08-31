@@ -56,8 +56,8 @@ module Liquid
       case tag
       when 'else'
         raise SyntaxError, "#{block_name} tag does not expect else tag"
-      when 'end'
-        raise SyntaxError, "'end' is not a valid delimiter for #{block_name} tags. use #{block_delimiter}"
+      # when 'end'
+      #   raise SyntaxError, "'end' is not a valid delimiter for #{block_name} tags. use #{block_delimiter}"
       else
         raise SyntaxError, "Unknown tag '#{tag}'"
       end
@@ -65,6 +65,7 @@ module Liquid
 
     def block_delimiter
       "end#{block_name}"
+      "end"
     end
 
     def block_name

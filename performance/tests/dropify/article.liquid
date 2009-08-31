@@ -25,7 +25,7 @@
         {{ comment.content }}
       </div>      
   	</li>
-  {% endfor %}
+  {% end %}
   </ul>
   
   <!-- Comment Form -->
@@ -42,33 +42,33 @@
         </div>
       {% else %}
         <div class="notice">Successfully posted your comment.</div>
-      {% endif %}
-    {% endif %}
+      {% end %}
+    {% end %}
     
     {% if form.errors %}
       <div class="notice error">Not all the fields have been filled out correctly!</div>
-    {% endif %}
+    {% end %}
     
     <dl>
-      <dt class="{% if form.errors contains 'author' %}error{% endif %}"><label for="comment_author">Your name</label></dt>
-      <dd><input type="text" id="comment_author" name="comment[author]" size="40" value="{{form.author}}" class="{% if form.errors contains 'author' %}input-error{% endif %}" /></dd>
+      <dt class="{% if form.errors contains 'author' %}error{% end %}"><label for="comment_author">Your name</label></dt>
+      <dd><input type="text" id="comment_author" name="comment[author]" size="40" value="{{form.author}}" class="{% if form.errors contains 'author' %}input-error{% end %}" /></dd>
 
-      <dt class="{% if form.errors contains 'email' %}error{% endif %}"><label for="comment_email">Your email</label></dt>
-      <dd><input type="text" id="comment_email" name="comment[email]" size="40" value="{{form.email}}" class="{% if form.errors contains 'email' %}input-error{% endif %}" /></dd>
+      <dt class="{% if form.errors contains 'email' %}error{% end %}"><label for="comment_email">Your email</label></dt>
+      <dd><input type="text" id="comment_email" name="comment[email]" size="40" value="{{form.email}}" class="{% if form.errors contains 'email' %}input-error{% end %}" /></dd>
 
-      <dt class="{% if form.errors contains 'body' %}error{% endif %}"><label for="comment_body">Your comment</label></dt>
-      <dd><textarea id="comment_body" name="comment[body]" cols="40" rows="5" class="{% if form.errors contains 'body' %}input-error{% endif %}">{{form.body}}</textarea></dd>
+      <dt class="{% if form.errors contains 'body' %}error{% end %}"><label for="comment_body">Your comment</label></dt>
+      <dd><textarea id="comment_body" name="comment[body]" cols="40" rows="5" class="{% if form.errors contains 'body' %}input-error{% end %}">{{form.body}}</textarea></dd>
     </dl>
     
     {% if blog.moderated? %}
       <p class="hint">comments have to be approved before showing up</p>
-    {% endif %}    
+    {% end %}    
 
     <input type="submit" value="Post comment" id="comment-submit" />
-  {% endform %}
+  {% end %}
   </div>
   <!-- END Comment Form -->
   
 </div>
-{% endif %}
+{% end %}
 <!-- END Comments -->

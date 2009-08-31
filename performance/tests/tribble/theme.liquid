@@ -27,7 +27,7 @@
 					Your cart is currently empty
 				{% else %}
 					{{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }} <span>-</span> Total: {{cart.total_price | money_with_currency }} <span>-</span> <a href="/cart">View Cart</a>
-				{% endif %}			
+				{% end %}			
 			</p>
 		</div>	
 		
@@ -41,7 +41,7 @@
 	<ul id="nav">
 		{% for link in linklists.main-menu.links %}
 		 <li>{{ link.title | link_to: link.url }}</li>
-		{% endfor %}
+		{% end %}
 	</ul>
 	
 	{{ content_for_layout }}
@@ -54,7 +54,7 @@
 				<li><a href="#top">Back to top</a></li>
 				{% for link in linklists.main-menu.links %}
 		 		<li>{{ link.title | link_to: link.url }}</li>
-				{% endfor %}
+				{% end %}
 			</ul>
 		</div>
 		

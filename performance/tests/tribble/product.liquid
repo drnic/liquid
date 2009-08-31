@@ -5,7 +5,7 @@
 	<p class="latest-news"><strong>Product Tags: </strong>
 		{% for tag in product.tags %} 
           	<a href="/collections/all/{{ tag }}">{{ tag }}</a> | 
-          {% endfor %}
+          {% end %}
 	</p>
 	
 	<div class="product clearfix">
@@ -23,7 +23,7 @@
 			<select id="product-info-options" name="id" class="product-info-options">
         {% for variant in product.variants %}
           <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
-        {% endfor %}
+        {% end %}
 			</select>
 			
 			<div id="price-field"></div>
@@ -36,7 +36,7 @@
 			{% else %}
               <h2>Sold out!</h2>
               <p>Sorry, we're all out of this product. Check back often and order when it returns</p>
-            	{% endif %}
+            	{% end %}
 		</div>			
 		
 		<div class="product-images clearfix">
@@ -47,8 +47,8 @@
 				<img src="{{ image | product_img_url: 'medium'}}" alt="{{product.title | escape }}" />
 			</div>			
 			{% else %}
-			{% endif %}				
-			{% endfor %}
+			{% end %}				
+			{% end %}
 			
 			<ul class="product-thumbs clearfix">
 			{% for image in product.images %}				
@@ -60,8 +60,8 @@
 			  <img src="{{ image | product_img_url: 'small'}}" alt="{{product.title | escape }}" />
 			</a>
 			</li>
-			{% endif %}				
-			{% endfor %}
+			{% end %}				
+			{% end %}
 			</ul>
 		</div>
 	</div>
