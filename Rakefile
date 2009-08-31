@@ -3,10 +3,9 @@ require 'rubygems'
 require 'rake'
 require 'hoe'
 
-PKG_DESC    = "A secure non evaling end user template engine with aesthetic markup."
-
 Hoe.spec "liquid" do
   developer("Tobias Luetke", "tobi@leetsoft.com")
+  self.readme_file = "README.rdoc"
 end
 
 
