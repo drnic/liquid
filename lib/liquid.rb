@@ -22,6 +22,8 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 module Liquid
+  VERSION = "2.1.0"
+
   FilterSeparator             = /\|/
   ArgumentSeparator           = ','
   FilterArgumentSeparator     = ':'

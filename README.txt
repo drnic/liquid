@@ -1,6 +1,12 @@
 = Liquid template engine
 
-Liquid is a template engine which I wrote for very specific requirements
+* http://www.liquidmarkup.org
+
+== Description
+
+A secure non evaling end user template engine with aesthetic markup.
+
+Liquid is a template engine which I wrote for very specific requirements.
 
 * It has to have beautiful and simple markup. 
   Template engines which don't produce good looking markup are no fun to use. 
